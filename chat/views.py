@@ -21,7 +21,7 @@ def user(request,username):
     view_user = get_object_or_404(User,username=username)
     params = {
         'view_user' : view_user,
-        'view_user_sent_messages': Message.objects.filter(sender = view_user).order_by('-created_at'),
+        'view_user_sent_messages': Message.objects.filter(sender = view_user,receiver = request.user).order_by('-created_at'),
     }
     return render(request,'chat/user.html',params)
     
