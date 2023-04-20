@@ -1,13 +1,9 @@
 import string
-from django.http import Http404
 from django.shortcuts import render, get_object_or_404,redirect
 from .models import Message
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth import login
-from django.core.files.base import ContentFile
-from PIL import Image
 from django.core.exceptions import PermissionDenied
 # Create your views here.
 @login_required(login_url='user_login')
@@ -19,16 +15,21 @@ def home(request):
 @login_required(login_url='user_login')
 def user(request,username):
     view_user = get_object_or_404(User,username=username)
+    if view_user.username == request.user.username:
+        view_user_sent_messages = Message.objects.filter(sender = view_user).order_by('-created_at')
+    else:
+        view_user_sent_messages = Message.objects.filter(sender = view_user,receiver = request.user).order_by('-created_at')
+
     params = {
         'view_user' : view_user,
-        'view_user_sent_messages': Message.objects.filter(sender = view_user,receiver = request.user).order_by('-created_at'),
+        'view_user_sent_messages': view_user_sent_messages,
     }
     return render(request,'chat/user.html',params)
-    
+
 @login_required(login_url='user_login')
 def message(request,mid):
     message = Message.objects.filter(pk = mid).first()
-    if (message.receiver.username != request.user.username) and (message.sender.username != request.user.username):
+    if not((message.receiver.username == request.user.username) or (message.sender.username == request.user.username)):
         raise PermissionDenied
     params= {
         'message' : message
@@ -57,7 +58,7 @@ def new(request):
             redirect('new')
         if valid:
             Message(sender = request.user,receiver= User.objects.filter(username = reciever).first(),title = title,content = content).save()
-            redirect(f'user',username=request.user.username)
+            redirect('user',username=request.user.username)
     return render(request,'chat/new.html')
 
 @login_required(login_url='user_login')
@@ -119,7 +120,7 @@ def profile(request):
             usr.save()
 
         elif 'profilepic' in request.FILES:
-            if request.FILES['profilepic'] is '':
+            if request.FILES['profilepic'] == '':
                 messages.add_message(request,level='230',message='no profile pic added',extra_tags='img')
             else:
                 new_pfp = request.FILES['profilepic']
