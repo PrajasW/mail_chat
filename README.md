@@ -16,7 +16,11 @@ A mail like application which can be used to chat with your friends
 
 <h3> Viewing Messages By Specific Users </h3>
 
+![2023-04-21](https://user-images.githubusercontent.com/74056138/233465377-63d940b3-327b-45b0-b629-7e1b87036b20.png)
 
+<h3> Viewing Messages You Sent </h3>
+
+![2023-04-21 (1)](https://user-images.githubusercontent.com/74056138/233465392-4e6de657-8ae7-4baf-bd39-a315f5253f04.png)
 
 <h3> Adding New Message </h3>
 
