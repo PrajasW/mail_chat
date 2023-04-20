@@ -30,28 +30,28 @@ def user_signup(request):
         
         valid = True
         if User.objects.filter(username=username):
-            messages.info(request, "Username already exist!")
+            messages.info(request, "username already exist")
             valid = False
-        if len(username)<4:
-            messages.info(request, "Username must be greater than 3 charcters!!")
+        if len(username)<3:
+            messages.info(request, "username must atleast 3 charcters")
             valid = False
         if len(username)>20:
-            messages.info(request, "Username must be under 20 charcters!!")
+            messages.info(request, "username must be under 20 charcters")
             valid = False
         if not username.isalnum():
-            messages.info(request, "Username must be alpha numric")
+            messages.info(request, "username must be alpha numric")
             valid = False
         if len(pass1) < 8:
-            messages.warning(request, "Passwords must be altleast 8 characters!!")
+            messages.warning(request, "password must be altleast 8 characters")
             valid = False
         if pass1.isalpha():
-            messages.warning(request, "Passwords must contain alteast one number!!")
+            messages.warning(request, "passwords must contain alteast one number")
             valid = False
         if pass1.isalnum():
-            messages.warning(request, "Passwords must contain one special character!!")
+            messages.warning(request, "passwords must contain one special character")
             valid = False
         if pass1 != pass2:
-            messages.error(request, "Passwords didn't matched!!")
+            messages.error(request, "passwords didn't matched")
             valid = False
         if not valid:
             return redirect('user_signup')

@@ -68,16 +68,16 @@ def profile(request):
             username = request.POST['username']
             valid = True
             if User.objects.filter(username=username):
-                messages.info(request, "Username already exist!")
+                messages.info(request, "username already exist!")
                 valid = False
-            if len(username)<4:
-                messages.info(request, "Username must be greater than 3 charcters!!")
+            if len(username)<3:
+                messages.info(request, "username must be atleast 3 charcters")
                 valid = False
             if len(username)>20:
-                messages.info(request, "Username must be under 20 charcters!!")
+                messages.info(request, "username must be under 20 charcters")
                 valid = False
             if not username.isalnum():
-                messages.info(request, "Username must be alpha numric")
+                messages.info(request, "username must be alpha numric")
                 valid = False
             if not valid:
                 return redirect('profile')
@@ -95,23 +95,23 @@ def profile(request):
                 messages.warning(request, "enter old password")
                 valid = False
             elif not request.user.check_password(pass1):
-                messages.warning(request, "Incorrect Password")
+                messages.warning(request, "incorrect password")
                 valid = False
             if pass2 == '':
-                messages.error(request, "Enter New Password!!")
+                messages.error(request, "enter new password")
                 valid = False
             elif len(pass2) < 8:
-                messages.error(request, "Passwords must be altleast 8 characters!!")
+                messages.error(request, "passwords must be altleast 8 characters")
                 valid = False
             if not any(char.isdigit() for char in pass2):
-                messages.error(request, "Passwords must contain alteast one number!!")
+                messages.error(request, "passwords must contain alteast one number")
                 valid = False
             if  not any(char in string.punctuation for char in pass2):
-                messages.error(request, "Passwords must contain a special character!!")
+                messages.error(request, "passwords must contain a special character")
                 valid = False
 
             if request.user.check_password(pass1) and pass1 == pass2:
-                messages.error(request, "New password can't be same as Old password!!")
+                messages.error(request, "new password can't be same as old password")
                 valid = False
             if not valid:
                 return redirect('profile')
@@ -127,7 +127,6 @@ def profile(request):
                 profile = request.user.profile
                 profile.profile_pic = new_pfp
                 profile.save()
-                messages.success(request, 'Your account has been updated!')
                 return redirect('profile')
 
         return redirect('profile')

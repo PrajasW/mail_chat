@@ -14,7 +14,7 @@
         <p class="my-8">{{ message.content }}</p>
     </div>
     <div class="redirect-buttons flex justify-between my-4">
-        <a href="{% url 'user' message.sender.username %}"><button class="text-black text-2xl bg-white rounded-xl bg-opacity-80 px-20 py-1">view all</button></a>
+        <a href="{% url 'user' message.sender.username %}"><button class="text-black text-2xl bg-white rounded-xl bg-opacity-80 px-4 py-1">view all by {{message.sender}}</button></a>
         <a href="{% url 'new' %}"><button class="text-black text-2xl bg-white rounded-xl bg-opacity-80 px-20 py-1">reply</button></a>
     </div>
 </div>

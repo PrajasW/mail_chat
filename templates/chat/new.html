@@ -4,7 +4,7 @@
     <form action="" method="POST">
         {% csrf_token %}
         <div class="message text-black text-2xl bg-white rounded-xl bg-opacity-80 p-2 my-2">
-            <label class="ml-12">To: </label>
+            <label class="ml-12 text-3xl">to: </label>
             <input type="text" class="rounded-lg w-[40%] text-2xl" id="reciever" name="reciever">
             {% for message in messages %}
             {% if message.tags == 'reciever_error' %}
@@ -13,14 +13,14 @@
             {% endfor %}
         </div>
         <div class="message text-black text-2xl bg-white rounded-xl bg-opacity-80 py-1 px-12 my-2">
-            <h2 class="text-3xl mt-8 inline">Title </h2>
+            <h2 class="text-3xl mt-8 inline">title </h2>
             <input class="rounded-md w-[80%] text-2xl" type="text" id="title" name="title" >
             {% for message in messages %}
             {% if message.tags == 'title_error' %}
             <div class="message text-2xl text-red-800 inline ml-12">{{message}}</div>
             {% endif %}
             {% endfor %}
-            <h2 class="text-2xl mt-8">Content </h2>
+            <h2 class="text-3xl mt-8">content </h2>
             {% for message in messages %}
             {% if message.tags == 'content_error' %}
             <div class="message text-2xl text-red-800 inline">{{message}}</div>
