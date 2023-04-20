@@ -1,0 +1,37 @@
+{% extends "chat/base.html" %}
+{% block content %}
+<div class="user-container font-itim bg-[#FDFDFD] bg-opacity-10 backdrop-blur-sm w-[85%] m-auto mt-8 py-8 px-12 rounded-lg">
+    <div class="user underline text-black text-center text-3xl bg-white rounded-xl bg-opacity-80 p-1 my-2">
+        {% load static %}
+        <img src="{{view_user.profile.profile_pic.url}}" alt="pfp" class="w-10 mr-4 inline rounded-full border-2 border-gray-600">{{view_user.username}}
+    </div>
+    {% if user == view_user %}
+    {% for message in view_user_sent_messages %}
+    <div class="message text-black text-center text-2xl bg-white rounded-xl bg-opacity-80 p-1 my-2">
+        <ul class="flex justify-start items-center">
+            <li class="ml-6"><a href="{% url 'user' message.receiver.username %}"><img src="{{message.receiver.profile.profile_pic.url}}" alt="logo" class="w-10 mr-4 inline rounded-full border-2 border-gray-600">{{message.receiver.username}}</a></li>
+            <li class="ml-4 text-center grow basis-0"><a href="{% url 'message' message.pk %}">{{message.title}}</a></li>
+            <li class="mr-4">{{message.created_at}}</li>
+        </ul>
+    </div>
+    {% endfor %}
+    {% else %}
+    {% for message in view_user_sent_messages %}
+        <div class="user-message text-black text-center text-2xl bg-white rounded-xl bg-opacity-80 p-1 my-2">
+            <ul class="flex justify-evenly items-center">
+                <li class="ml-8 grow text-center"><a href="{% url 'message' message.pk %}">{{message.title}}</a></li>
+                <li class="mr-4">{{message.created_at}}</li>
+            </ul>
+        </div>
+    {% endfor %}
+    {% endif %}
+    
+    <!-- <div class="pagation w-[60%] mt-8 font-itim text-black text-center text-2xl bg-white rounded-xl bg-opacity-80 p-1 my-2 m-auto">
+        <ul class="flex justify-start items-center">
+            <li class="ml-4">back</li>
+            <li class="text-center grow basis-0">1 ... 6 7 8 ... 9</li>
+            <li class="mr-4">next</li>
+        </ul>
+    </div> -->
+</div>
+{% endblock content %}

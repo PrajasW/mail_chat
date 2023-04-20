@@ -1,0 +1,41 @@
+{% extends "user_auth/base.html" %}
+{% block content %}
+<div class="home-container font-itim bg-[#FDFDFD] bg-opacity-10 backdrop-blur-sm w-[60%] m-auto mt-8 py-8 px-12 rounded-lg">
+    <form action="" method="post" class=" mx-10">
+        {% csrf_token %}
+        <label for="username" class="block text-white text-3xl">username</label>
+        <input type="text" id="username" name="username" class="mt-4 w-[100%] h-8 text-2xl px-4 rounded-md">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'info' %}
+                <div class="message text-xl text-red-800">{{message}}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        
+        <label for="password" class="block text-white text-3xl mt-4">password</label>
+        <input type="password" id="pass1" name="pass1" class="mt-4 w-[100%] h-8 text-2xl px-4 rounded-md">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'warning' %}
+                <div class="message text-xl text-red-800">{{message}}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <label for="password" class="block text-white text-3xl mt-4">confirm password</label>
+        <input type="password" id="pass2" name="pass2" class="mt-4 w-[100%] h-8 text-2xl px-4 rounded-md">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <div class="message text-xl text-red-800">{{message}}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <div class="flex justify-between mt-16">
+            <div>have an account? <a href="{% url 'user_login' %}"><span class="text-blue-600 hover:text-blue-500">login</span></a></div>
+            <div></div>
+            <button class="text-black text-2xl bg-white rounded-xl bg-opacity-80 px-20 py-1">sign up</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

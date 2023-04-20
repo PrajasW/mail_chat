@@ -1,0 +1,21 @@
+{% extends "chat/base.html" %}
+{% block content %}
+<div class="home-container font-itim bg-[#FDFDFD] bg-opacity-10 backdrop-blur-sm w-[85%] m-auto mt-8 py-8 px-12 rounded-lg">
+    <div class="message text-black text-center text-2xl bg-white rounded-xl bg-opacity-80 p-1 my-2">
+        <ul class="flex justify-between">
+            {% load static %}
+            <li class="ml-6 flex-initial"><a href="{% url 'user' message.sender.username %}"><img src="{{ message.sender.profile.profile_pic.url }}" alt="logo" class="w-10 mr-4 inline rounded-full border-2 border-gray-600">{{ message.sender.username }}</a></li>
+            <li class="flex-initial"></li>
+            <li class="mr-4 flex-initial">{{ message.created_at }}</li>
+        </ul>
+    </div>
+    <div class="message text-black text-2xl bg-white rounded-xl bg-opacity-80 py-1 px-12 my-2">
+        <h2 class="text-3xl mt-8">{{ message.title }}</h2>
+        <p class="my-8">{{ message.content }}</p>
+    </div>
+    <div class="redirect-buttons flex justify-between my-4">
+        <a href="{% url 'user' message.sender.username %}"><button class="text-black text-2xl bg-white rounded-xl bg-opacity-80 px-20 py-1">view all</button></a>
+        <a href="{% url 'new' %}"><button class="text-black text-2xl bg-white rounded-xl bg-opacity-80 px-20 py-1">reply</button></a>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% extends "chat/base.html" %}
+{% block content %}
+<div class="home-container font-itim bg-[#FDFDFD] bg-opacity-10 backdrop-blur-sm w-[85%] m-auto mt-8 py-8 px-12 rounded-lg">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="message text-black text-2xl bg-white rounded-xl bg-opacity-80 p-2 my-2">
+            <label class="ml-12">To: </label>
+            <input type="text" class="rounded-lg w-[40%] text-2xl" id="reciever" name="reciever">
+            {% for message in messages %}
+            {% if message.tags == 'reciever_error' %}
+            <div class="message text-2xl text-red-800 inline ml-12">{{message}}</div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="message text-black text-2xl bg-white rounded-xl bg-opacity-80 py-1 px-12 my-2">
+            <h2 class="text-3xl mt-8 inline">Title </h2>
+            <input class="rounded-md w-[80%] text-2xl" type="text" id="title" name="title" >
+            {% for message in messages %}
+            {% if message.tags == 'title_error' %}
+            <div class="message text-2xl text-red-800 inline ml-12">{{message}}</div>
+            {% endif %}
+            {% endfor %}
+            <h2 class="text-2xl mt-8">Content </h2>
+            {% for message in messages %}
+            {% if message.tags == 'content_error' %}
+            <div class="message text-2xl text-red-800 inline">{{message}}</div>
+            {% endif %}
+            {% endfor %}
+            <textarea name="content" id="content" cols="80" rows="8" class="rounded-md text-2xl "></textarea>
+        </div>
+        <div class="redirect-buttons flex justify-between my-4">
+            <a href="{% url 'new' %}">
+            <button class="text-black text-2xl bg-white rounded-xl bg-opacity-80 px-20 py-1" type="button">reset</button>
+            </a>
+            <button class="text-black text-2xl bg-white rounded-xl bg-opacity-80 px-20 py-1" type="submit">send</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,56 @@
+{% extends "chat/base.html" %}
+{% block content %}
+<div class="home-container font-itim bg-[#FDFDFD] bg-opacity-10 backdrop-blur-sm w-[60%] m-auto mt-8 py-8 px-12 rounded-lg flex justify-between">
+    <div class="mx-auto my-auto">
+        <h2 class="text-5xl text-white my-4">{{user.username}}</h2>
+        <div></div>
+        {% load static %}
+        <img src="{{user.profile.profile_pic.url}}" alt="logo" class="m-auto w-36 inline rounded-full ">
+    </div>
+    <div></div>
+    <div class="ml-auto">
+        <form action="" method="POST" name="u_form" >
+            {% csrf_token %}
+            <label for="username" class="block text-white text-3xl mt-2">change username</label>
+            <input type="text" id="username" name="username" class="mt-4 w-[100%] h-8 text-2xl px-4 rounded-md" placeholder="{{user.username}}">
+            {% for message in messages %}
+            {% if message.tags == 'info' %}
+                <div class="message text-xl text-red-800">{{message}}</div>
+            {% endif %}
+            {% endfor %}
+            <button class=" block text-black text-xl bg-white rounded-xl bg-opacity-80 px-6 py-1 my-2 mt-4" type="submit">update username</button>
+        </form>
+        <form action="" method="POST" name="p_form">
+            {% csrf_token %} 
+            <h1 class="block text-white text-3xl mt-4">change password</h1>
+            <label for="password" class="block text-white text-2xl mt-4">old-password</label>
+            <input type="password" id="pass1" name="pass1" class="mt-4 w-[100%] h-8 text-2xl px-4 rounded-md">
+            {% for message in messages %}
+            {% if message.tags == 'warning' %}
+            <div class="message text-xl text-red-800">{{message}}</div>
+            {% endif %}
+            {% endfor %}
+            
+            <label for="password" class="block text-white text-2xl mt-4">new-password</label>
+            <input type="password" id="pass2" name="pass2" class="mt-4 w-[100%] h-8 text-2xl px-4 rounded-md">
+            {% for message in messages %}
+            {% if message.tags == 'error' %}
+            <div class="message text-xl text-red-800">{{message}}</div>
+            {% endif %}
+            {% endfor %}
+            <button class=" block text-black text-xl bg-white rounded-xl bg-opacity-80 px-6 py-1 my-2 mt-4" type="submit">update password</button>
+        </form>
+        <form action="" method="POST" name="i_form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="profilepic" class="block text-white text-3xl mt-4">change profile pic</label>
+            <input type="file" accept=".png, .jpg, .jpeg, .gif" id="profilepic" name="profilepic" class="rounded-xl bg-white w-[80%] mt-4">
+            {% for message in messages %}
+            {% if message.tags == 'img' %}
+            <div class="message text-xl text-red-800">{{message}}</div>
+            {% endif %}
+            {% endfor %}
+            <button class=" block text-black text-xl bg-white rounded-xl bg-opacity-80 px-6 py-1 my-2 mt-4" type="submit">update pfp</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

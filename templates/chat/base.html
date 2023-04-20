@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mail-Chat</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'assets/style-fef972b6.css' %}">
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'assets/logo-f6d882de.ico' %}" type="image/x-icon">
+</head>
+    <body class="bg-cover bg-no-repeat">
+    <div class="navbar mt-6 font-itim">
+        <ul class="m-auto flex justify-between px-8 items-center p-2 w-[80%] space-x-36 text-2xl bg-[#FDFDFD] bg-opacity-10 backdrop-blur-sm text-white rounded-lg">
+            {% load static %}
+            <li class=""><a href="{% url 'home' %}"><img src="{% static 'assets/logo-f6d882de.png' %}" alt="logo" class="w-12 inline mr-4">mail-chat</a></li>
+            <li class=""><a href="{% url 'new' %}">new</a></li>
+            <li class=""><a href="{% url 'user' user.username %}">view-sent</a></li>
+            <li class=""><a href="{% url 'user_logout' %}">logout</a></li>
+            {% load static %}
+            <li class=""><a href="{% url 'profile' %}">{{user.username}}<img src="{{user.profile.profile_pic.url}}" alt="logo" class="w-12 ml-4 inline rounded-full"></a></li>
+        </ul>
+    </div>
+    {% block content %}
+      
+    {% endblock content %}
+</body>
+</html>
