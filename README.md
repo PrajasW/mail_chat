@@ -3,6 +3,20 @@ website: https://kanao.pythonanywhere.com/
 
 A mail like application which can be used to chat with your friends
 
+<h2> How to run ? </h2>
+
+Browse to the root directory
+
+have python version 3.10 or better installed
+```
+python -m venv venv
+venv/Scripts/activate.bat
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+
 <h2>User Authentication</h2>
 
 ![2023-04-20 (4)](https://user-images.githubusercontent.com/74056138/233285066-132c725e-abf6-4459-91b6-97bc385db86b.png)
