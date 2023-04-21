@@ -1,5 +1,5 @@
 import string
-from django.shortcuts import render, get_object_or_404,redirect
+from django.shortcuts import render, get_object_or_404,redirect, reverse
 from .models import Message
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -58,7 +58,7 @@ def new(request):
             redirect('new')
         if valid:
             Message(sender = request.user,receiver= User.objects.filter(username = reciever).first(),title = title,content = content).save()
-            redirect('user',username=request.user.username)
+            return redirect(reverse('user', kwargs={'username': request.user.username}))
     return render(request,'chat/new.html')
 
 @login_required(login_url='user_login')
